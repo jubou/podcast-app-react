@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Montserrat", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: clamp(14px, 1rem, 18px);
+  line-height: 1.5;
+  background-color: var(--background-color);
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
