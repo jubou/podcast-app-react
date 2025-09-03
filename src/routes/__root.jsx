@@ -1,17 +1,14 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
+import Header from "../components/header/Header";
 
 export const Route = createRootRoute({
   component: () => {
     return (
       <>
-        <div>
-          <header>
-            <h1>Podcaster</h1>
-          </header>
-          <main>
-            <Outlet />
-          </main>
-        </div>
+        <Header />
+        <main className="main-content">
+          <Outlet />
+        </main>
       </>
     );
   },
