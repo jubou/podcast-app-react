@@ -12,4 +12,7 @@ export const Route = createRootRoute({
       </>
     );
   },
+  beforeLoad: () => {
+    window.scrollTo(0, 0);
+  },
 });
