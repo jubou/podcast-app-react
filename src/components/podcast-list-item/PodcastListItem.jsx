@@ -1,8 +1,13 @@
+import { Link } from "@tanstack/react-router";
 import styles from "./PodcastListItem.module.scss";
 
 export default function PodcastListItem({ podcast }) {
   return (
-    <div className={styles.card}>
+    <Link
+      to="/podcast/$podcastId"
+      params={{ podcastId: podcast.id }}
+      className={styles.card}
+    >
       <div className={styles.imageContainer}>
         <img
           src={podcast?.image || "https://picsum.photos/170"}
@@ -20,6 +25,6 @@ export default function PodcastListItem({ podcast }) {
           Author: {podcast?.artist || "Unknown Artist"}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
