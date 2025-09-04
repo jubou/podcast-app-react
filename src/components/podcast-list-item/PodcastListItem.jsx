@@ -10,8 +10,8 @@ export default function PodcastListItem({ podcast }) {
     >
       <div className={styles.imageContainer}>
         <img
-          src={podcast?.image || "https://picsum.photos/170"}
-          alt={podcast?.name || "Podcast"}
+          src={podcast?.image}
+          alt={podcast?.name}
           className={styles.image}
           loading="lazy"
         />
@@ -21,9 +21,7 @@ export default function PodcastListItem({ podcast }) {
         <h3 className={styles.title}>
           {(podcast?.name || "Podcast Title").toUpperCase()}
         </h3>
-        <p className={styles.artist}>
-          Author: {podcast?.artist || "Unknown Artist"}
-        </p>
+        <p className={styles.artist}>Author: {podcast?.artist}</p>
       </div>
     </Link>
   );

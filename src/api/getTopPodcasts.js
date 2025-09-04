@@ -14,9 +14,9 @@ export const getTopPodcasts = async () => {
     return (
       data.feed?.entry?.map((entry) => ({
         id: entry.id?.attributes?.["im:id"],
-        name: entry["im:name"]?.label || "Unknown Podcast",
-        artist: entry["im:artist"]?.label || "Unknown Artist",
-        image: entry["im:image"]?.[2]?.label || "https://picsum.photos/170",
+        name: entry["im:name"]?.label,
+        artist: entry["im:artist"]?.label,
+        image: entry["im:image"]?.[2]?.label,
       })) || []
     );
   } catch (error) {
