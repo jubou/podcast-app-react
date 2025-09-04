@@ -22,13 +22,8 @@ export const getPodcastWithEpisodes = async (podcastId, limit = 100) => {
         podcastData?.trackName ||
         "Unknown Podcast",
       artist: podcastData?.artistName || "Unknown Artist",
-      image:
-        podcastData?.artworkUrl600 ||
-        podcastData?.artworkUrl100 ||
-        "https://picsum.photos/170",
+      image: podcastData?.artworkUrl600 || podcastData?.artworkUrl100,
       description: "",
-      genres: podcastData?.genres || [],
-      trackCount: podcastData?.trackCount || 0,
     };
 
     const episodes =

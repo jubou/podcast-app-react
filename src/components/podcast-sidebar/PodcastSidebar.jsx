@@ -22,7 +22,7 @@ export default function PodcastSidebar({ podcastId, showLink = false }) {
       {podcast?.image && (
         <img
           src={podcast.image}
-          alt={podcast?.name || "Podcast"}
+          alt={podcast?.name}
           className={styles.podcastImage}
         />
       )}
