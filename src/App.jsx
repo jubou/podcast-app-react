@@ -31,6 +31,14 @@ const App = () => {
         persistOptions={{
           persister,
           maxAge: 24 * 60 * 60 * 1000,
+          dehydrateOptions: {
+            shouldDehydrateQuery: (query) => {
+              return (
+                query.state.status === "success" &&
+                query.state.data !== undefined
+              );
+            },
+          },
         }}
       >
         <RouterProvider router={router} />
