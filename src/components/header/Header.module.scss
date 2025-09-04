@@ -23,13 +23,23 @@
 .navigationIndicator {
   width: 1.5rem;
   height: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-top: 2px solid var(--primary-color);
   border-radius: 50%;
-  background-color: var(--primary-color);
   display: none;
+  animation: spin 1s linear infinite;
 
   &.active {
     display: block;
-    animation: pulse 1.5s infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
