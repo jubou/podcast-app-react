@@ -1,6 +1,6 @@
 import { buildItunesUrl, fetchWithFallback } from "./utils";
 
-export const getPodcastWithEpisodes = async (podcastId, limit = 9) => {
+export const getPodcastWithEpisodes = async (podcastId, limit = 100) => {
   const url = buildItunesUrl(
     `/lookup?id=${podcastId}&entity=podcastEpisode&limit=${limit}`,
   );
