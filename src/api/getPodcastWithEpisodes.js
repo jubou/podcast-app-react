@@ -9,7 +9,7 @@ export const getPodcastWithEpisodes = async (podcastId, limit = 9) => {
     const data = await fetchWithFallback(url);
 
     if (!data?.results || data.results.length === 0) {
-      console.error("❌ No podcast found with this ID");
+      console.error("No podcast found with this ID");
       return { podcast: null, episodes: [] };
     }
 
@@ -44,7 +44,7 @@ export const getPodcastWithEpisodes = async (podcastId, limit = 9) => {
 
     return { podcast, episodes };
   } catch (error) {
-    console.error("❌ Error fetching podcast with episodes:", error);
+    console.error("Error fetching podcast with episodes:", error);
     return { podcast: null, episodes: [] };
   }
 };

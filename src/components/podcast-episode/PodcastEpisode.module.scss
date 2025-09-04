@@ -26,15 +26,6 @@
   }
 }
 
-.audioSection {
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-}
-
 .audioPlayer {
   width: 100%;
   height: 3.5rem;
@@ -43,16 +34,6 @@
   border: 1px solid var(--border-color);
 }
 
-.noAudio {
-  font-style: italic;
-  padding: 1rem;
-  background: var(--background-secondary);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  margin: 0;
-}
-
-.loading,
 .notFound {
   padding: 2rem;
   text-align: center;
@@ -73,7 +54,6 @@
     margin-bottom: 1.5rem;
   }
 
-  .loading,
   .notFound {
     padding: 1.5rem;
   }
@@ -88,7 +68,6 @@
     font-size: 1.5rem;
   }
 
-  .loading,
   .notFound {
     padding: 1rem;
   }

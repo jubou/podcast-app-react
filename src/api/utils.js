@@ -12,14 +12,14 @@ export const fetchWithFallback = async (url) => {
     return await response.json();
   } catch (directError) {
     console.error(
-      `❌ Direct fetch failed (likely CORS): ${directError.message}, trying proxy...`,
+      `Direct fetch failed (CORS): ${directError.message}, falling back to proxy`,
     );
 
     const proxyUrl = `${PROXY_URL}?url=${encodeURIComponent(url)}`;
     const proxyResponse = await fetch(proxyUrl);
 
     if (!proxyResponse.ok) {
-      console.error(`❌ Proxy fetch failed: ${proxyResponse.status}`);
+      console.error(`Proxy fetch failed: ${proxyResponse.status}`);
       return null;
     }
 

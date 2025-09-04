@@ -1,11 +1,7 @@
 import { useState } from "react";
 import styles from "./PodcastFilter.module.scss";
 
-export default function PodcastFilter({
-  onFilterChange,
-  totalCount,
-  filteredCount,
-}) {
+export default function PodcastFilter({ onFilterChange, filteredCount }) {
   const [filterValue, setFilterValue] = useState("");
 
   const handleInputChange = (e) => {
