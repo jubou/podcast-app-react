@@ -9,37 +9,38 @@ export default function PodcastEpisode({ podcastId, episodeId }) {
     enabled: !!podcastId,
   });
 
+  if (isLoading || !podcastData) {
+    return null;
+  }
+
   const episodes = podcastData?.episodes || [];
   const currentEpisode = episodes.find((ep) => ep.id === parseInt(episodeId));
 
-  return isLoading ? (
-    <div className={styles.loading}>Loading episode...</div>
-  ) : !currentEpisode ? (
-    <div className={styles.notFound}>Episode not found</div>
-  ) : (
+  if (!currentEpisode) {
+    return <div className={styles.notFound}>Episode not found</div>;
+  }
+
+  return (
     <div className={styles.episodeDetail}>
-      <h1 className={styles.episodeTitle}>{currentEpisode.title}</h1>
+      <div className={styles.episodeHeader}>
+        <h2 className={styles.episodeTitle}>{currentEpisode.title}</h2>
+      </div>
 
       {currentEpisode.description && (
-        <div className={styles.episodeDescription}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: currentEpisode.description,
-            }}
-          />
-        </div>
+        <div
+          className={styles.episodeDescription}
+          dangerouslySetInnerHTML={{ __html: currentEpisode.description }}
+        />
       )}
 
-      <div className={styles.audioSection}>
-        {currentEpisode.audioUrl ? (
-          <audio controls className={styles.audioPlayer}>
+      {currentEpisode.audioUrl && (
+        <div className={styles.audioContainer}>
+          <audio controls className={styles.audioPlayer} preload="metadata">
             <source src={currentEpisode.audioUrl} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
-        ) : (
-          <p className={styles.noAudio}>Audio not available for this episode</p>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

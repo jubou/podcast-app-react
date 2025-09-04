@@ -19,40 +19,37 @@ export default function PodcastList() {
     const searchTerm = filterValue.toLowerCase();
     return podcasts.filter(
       (podcast) =>
-        podcast.name.toLowerCase().includes(searchTerm) ||
-        podcast.artist.toLowerCase().includes(searchTerm),
+        podcast.name?.toLowerCase().includes(searchTerm) ||
+        podcast.artist?.toLowerCase().includes(searchTerm),
     );
   }, [podcasts, filterValue]);
 
+  if (isLoading || !podcasts.length) {
+    return null;
+  }
+
+  const hasFilterResults = filteredPodcasts.length > 0;
+  const showNoResults = filterValue.trim() && !hasFilterResults;
+
   return (
     <div className={styles.container}>
-      {isLoading ? (
-        <div className={styles.loading}>
-          <p>Loading podcasts...</p>
+      <PodcastFilter
+        onFilterChange={setFilterValue}
+        filteredCount={filteredPodcasts.length}
+      />
+      {hasFilterResults ? (
+        <div className={styles.grid}>
+          {filteredPodcasts.map((podcast) => (
+            <PodcastListItem key={podcast.id} podcast={podcast} />
+          ))}
         </div>
-      ) : (
-        <>
-          <PodcastFilter
-            onFilterChange={setFilterValue}
-            totalCount={podcasts.length}
-            filteredCount={filteredPodcasts.length}
-          />
-          {filteredPodcasts.length > 0 ? (
-            <div className={styles.grid}>
-              {filteredPodcasts.map((podcast) => (
-                <PodcastListItem key={podcast.id} podcast={podcast} />
-              ))}
-            </div>
-          ) : (
-            <div className={styles.noResults}>
-              <p>
-                No results found for podcasts or authors containing "
-                {filterValue}"
-              </p>
-            </div>
-          )}
-        </>
-      )}
+      ) : showNoResults ? (
+        <div className={styles.noResults}>
+          <p>
+            No results found for podcasts or authors containing "{filterValue}"
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 }

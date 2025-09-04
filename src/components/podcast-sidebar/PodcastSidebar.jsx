@@ -13,6 +13,10 @@ export default function PodcastSidebar({ podcastId, showLink = false }) {
 
   const podcast = podcastData?.podcast;
 
+  if (isLoading || !podcast) {
+    return null;
+  }
+
   const renderPodcastContent = () => (
     <>
       {podcast?.image && (
@@ -31,29 +35,23 @@ export default function PodcastSidebar({ podcastId, showLink = false }) {
 
   return (
     <aside className={styles.sidebar}>
-      {isLoading || !podcast ? (
-        <div className={styles.loading}>Loading podcast...</div>
+      {showLink ? (
+        <Link
+          to="/podcast/$podcastId"
+          params={{ podcastId }}
+          className={styles.podcastLink}
+        >
+          {renderPodcastContent()}
+        </Link>
       ) : (
-        <>
-          {showLink ? (
-            <Link
-              to="/podcast/$podcastId"
-              params={{ podcastId }}
-              className={styles.podcastLink}
-            >
-              {renderPodcastContent()}
-            </Link>
-          ) : (
-            <div className={styles.podcastLink}>{renderPodcastContent()}</div>
-          )}
+        <div className={styles.podcastLink}>{renderPodcastContent()}</div>
+      )}
 
-          {podcast?.description && (
-            <div className={styles.description}>
-              <h4>Description</h4>
-              <p>{podcast.description}</p>
-            </div>
-          )}
-        </>
+      {podcast?.description && (
+        <div className={styles.description}>
+          <h4>Description</h4>
+          <p>{podcast.description}</p>
+        </div>
       )}
     </aside>
   );

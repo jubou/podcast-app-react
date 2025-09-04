@@ -10,11 +10,11 @@ export default function PodcastEpisodesList({ podcastId }) {
     enabled: !!podcastId,
   });
 
-  const episodes = podcastData?.episodes || [];
-
-  if (isLoading) {
-    return <div className={styles.loading}>Loading episodes...</div>;
+  if (isLoading || !podcastData) {
+    return null;
   }
+
+  const episodes = podcastData?.episodes || [];
 
   if (!episodes.length) {
     return <div className={styles.noEpisodes}>No episodes found</div>;
@@ -24,34 +24,34 @@ export default function PodcastEpisodesList({ podcastId }) {
     <div className={styles.container}>
       <div className={styles.episodesSection}>
         <h3 className={styles.episodesHeader}>Episodes: {episodes.length}</h3>
-
         <div className={styles.episodesTable}>
           <div className={styles.tableHeader}>
-            <div className={styles.columnTitle}>Title</div>
-            <div className={styles.columnDate}>Date</div>
-            <div className={styles.columnDuration}>Duration</div>
+            <span>Title</span>
+            <span>Date</span>
+            <span>Duration</span>
           </div>
-
-          <div className={styles.tableBody}>
-            {episodes.map((episode) => (
-              <Link
-                key={episode.id}
-                to="/podcast/$podcastId/episode/$episodeId"
-                params={{ podcastId, episodeId: episode.id.toString() }}
-                className={styles.episodeRow}
-              >
-                <div className={styles.episodeTitle}>{episode.title}</div>
-                <div className={styles.episodeDate}>
-                  {new Date(episode.releaseDate).toLocaleDateString()}
-                </div>
-                <div className={styles.episodeDuration}>
-                  {episode.duration
-                    ? `${Math.round(episode.duration / 1000 / 60)} min`
-                    : "-"}
-                </div>
-              </Link>
-            ))}
-          </div>
+          {episodes.map((episode) => (
+            <Link
+              key={episode.id}
+              to="/podcast/$podcastId/episode/$episodeId"
+              params={{ podcastId, episodeId: episode.id.toString() }}
+              className={styles.episodeRow}
+            >
+              <span className={styles.episodeTitle}>{episode.title}</span>
+              <span className={styles.episodeDate}>
+                {episode.releaseDate
+                  ? new Date(episode.releaseDate).toLocaleDateString()
+                  : "Unknown"}
+              </span>
+              <span className={styles.episodeDuration}>
+                {episode.duration
+                  ? `${Math.floor(episode.duration / 60000)}:${String(
+                      Math.floor((episode.duration % 60000) / 1000),
+                    ).padStart(2, "0")}`
+                  : "Unknown"}
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
