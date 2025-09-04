@@ -1,15 +1,15 @@
-import { buildItunesUrl } from "./utils";
+import { buildItunesUrl, fetchWithFallback } from "./utils";
 
 export const getTopPodcasts = async () => {
   const url = buildItunesUrl("/us/rss/toppodcasts/limit=100/genre=1310/json");
 
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      console.error(`HTTP error! status: ${response.status}`);
+    const data = await fetchWithFallback(url);
+
+    if (!data?.feed?.entry) {
+      console.error("No podcasts found in response");
       return [];
     }
-    const data = await response.json();
 
     return (
       data.feed?.entry?.map((entry) => ({
