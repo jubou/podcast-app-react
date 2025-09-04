@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPodcastWithEpisodes } from "../../api/getPodcastWithEpisodes";
+import EpisodeDescription from "../EpisodeDescription";
 import styles from "./PodcastEpisode.module.scss";
 
 export default function PodcastEpisode({ podcastId, episodeId }) {
@@ -27,10 +28,9 @@ export default function PodcastEpisode({ podcastId, episodeId }) {
       </div>
 
       {currentEpisode.description && (
-        <div
-          className={styles.episodeDescription}
-          dangerouslySetInnerHTML={{ __html: currentEpisode.description }}
-        />
+        <div className={styles.episodeDescription}>
+          <EpisodeDescription value={currentEpisode.description} />
+        </div>
       )}
 
       {currentEpisode.audioUrl && (

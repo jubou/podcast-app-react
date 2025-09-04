@@ -10,6 +10,7 @@ Web application to discover and listen to music podcasts.
 - Integrated audio player
 - Optimized SPA navigation
 - Local caching with 1-day expiration
+- Smart episode descriptions: HTML rendering when present, auto-linked URLs for plain text
 
 ## Technologies
 
@@ -65,3 +66,15 @@ npm run build
 ## Production Preview
 
 npm run preview
+
+## Technical Notes
+
+### Episode Descriptions
+
+Episode descriptions are rendered intelligently:
+
+- **HTML content**: Rendered as HTML when detected (using regex pattern matching)
+- **Plain text**: URLs are automatically converted to clickable links for better UX
+- **Fallback**: Empty descriptions are handled gracefully
+
+This approach ensures compliance with the technical requirements while providing enhanced user experience for plain text descriptions containing URLs.
