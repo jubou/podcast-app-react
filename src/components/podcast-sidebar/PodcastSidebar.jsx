@@ -1,0 +1,60 @@
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
+import { getPodcastWithEpisodes } from "../../api/getPodcastWithEpisodes";
+import styles from "./PodcastSidebar.module.scss";
+
+export default function PodcastSidebar({ podcastId, showLink = false }) {
+  const { data: podcastData, isLoading } = useQuery({
+    queryKey: ["podcast-with-episodes", podcastId],
+    queryFn: () => getPodcastWithEpisodes(podcastId),
+    staleTime: 24 * 60 * 60 * 1000,
+    enabled: !!podcastId,
+  });
+
+  const podcast = podcastData?.podcast;
+
+  const renderPodcastContent = () => (
+    <>
+      {podcast?.image && (
+        <img
+          src={podcast.image}
+          alt={podcast?.name || "Podcast"}
+          className={styles.podcastImage}
+        />
+      )}
+      {podcast?.name && <h3 className={styles.podcastTitle}>{podcast.name}</h3>}
+      {podcast?.artist && (
+        <p className={styles.podcastAuthor}>by {podcast.artist}</p>
+      )}
+    </>
+  );
+
+  return (
+    <aside className={styles.sidebar}>
+      {isLoading || !podcast ? (
+        <div className={styles.loading}>Loading podcast...</div>
+      ) : (
+        <>
+          {showLink ? (
+            <Link
+              to="/podcast/$podcastId"
+              params={{ podcastId }}
+              className={styles.podcastLink}
+            >
+              {renderPodcastContent()}
+            </Link>
+          ) : (
+            <div className={styles.podcastLink}>{renderPodcastContent()}</div>
+          )}
+
+          {podcast?.description && (
+            <div className={styles.description}>
+              <h4>Description</h4>
+              <p>{podcast.description}</p>
+            </div>
+          )}
+        </>
+      )}
+    </aside>
+  );
+}
