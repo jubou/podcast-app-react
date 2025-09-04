@@ -1,7 +1,7 @@
-const BASE_ITUNES_URL = "https://itunes.apple.com";
+import { buildItunesUrl } from "./utils";
 
 export const getTopPodcasts = async () => {
-  const url = `${BASE_ITUNES_URL}/us/rss/toppodcasts/limit=100/genre=1310/json`;
+  const url = buildItunesUrl("/us/rss/toppodcasts/limit=100/genre=1310/json");
 
   try {
     const response = await fetch(url);
@@ -11,12 +11,14 @@ export const getTopPodcasts = async () => {
     }
     const data = await response.json();
 
-    return data.feed.entry.map((entry) => ({
-      id: entry.id.attributes["im:id"],
-      name: entry["im:name"].label,
-      artist: entry["im:artist"].label,
-      image: entry["im:image"][2].label,
-    }));
+    return (
+      data.feed?.entry?.map((entry) => ({
+        id: entry.id?.attributes?.["im:id"],
+        name: entry["im:name"]?.label || "Unknown Podcast",
+        artist: entry["im:artist"]?.label || "Unknown Artist",
+        image: entry["im:image"]?.[2]?.label || "https://picsum.photos/170",
+      })) || []
+    );
   } catch (error) {
     console.error("Error fetching top podcasts:", error);
     return [];
