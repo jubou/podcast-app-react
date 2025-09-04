@@ -26,10 +26,14 @@ export default function PodcastSidebar({ podcastId, showLink = false }) {
           className={styles.podcastImage}
         />
       )}
-      {podcast?.name && <h3 className={styles.podcastTitle}>{podcast.name}</h3>}
-      {podcast?.artist && (
-        <p className={styles.podcastAuthor}>by {podcast.artist}</p>
-      )}
+      <div className={styles.podcastInfo}>
+        {podcast?.name && (
+          <h3 className={styles.podcastTitle}>{podcast.name}</h3>
+        )}
+        {podcast?.artist && (
+          <p className={styles.podcastAuthor}>by {podcast.artist}</p>
+        )}
+      </div>
     </>
   );
 

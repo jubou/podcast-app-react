@@ -29,6 +29,11 @@
   margin-bottom: var(--spacing-md);
 }
 
+.podcastInfo {
+  display: flex;
+  flex-direction: column;
+}
+
 .podcastTitle {
   font-size: 1.5rem;
   font-weight: 700;
@@ -70,8 +75,9 @@
   }
 
   .podcastLink {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: flex-start;
     gap: 1rem;
     padding: var(--spacing-md);
   }
@@ -90,6 +96,7 @@
 
   .podcastAuthor {
     margin: 0;
+    font-size: 0.9rem;
   }
 
   .description {
