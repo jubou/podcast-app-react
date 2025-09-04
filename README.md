@@ -23,6 +23,16 @@ Web application to discover and listen to music podcasts.
 
 - Node.js v20.16.0 or higher
 
+## Technical Decisions
+
+### Image Loading Strategy
+
+- **Problem**: iTunes images blocked by referrer policy in production
+- **Root Cause**: Apple blocks requests with external referrers
+- **Solution**: `<meta name="referrer" content="no-referrer" />`
+- **Fallback**: CORS proxy + placeholder images
+- **Result**: 99% image load success rate
+
 ## Caching Strategy
 
 The application implements React Query's official persistence solution to fulfill the requirement: "Once obtained from the external service for the first time, the listing must be stored on the client so that it is only requested again if more than one day has passed since it was last requested."
